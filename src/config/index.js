@@ -1,9 +1,7 @@
 module.exports = {
-  database:
-    process.env.MONGO_URI ||
-    "mongodb+srv://alfuty09:Najatullahi19@ga-hamilton.f3z1pdm.mongodb.net/queDataBase?retryWrites=true&w=majority",
+  database: process.env.MONGO_URI || "",
   server: {
-    port: process.env.PORT || 9000,
+    port: process.env.PORT,
   },
 
   //reduse expiry time
