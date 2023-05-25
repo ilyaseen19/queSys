@@ -14,9 +14,26 @@ router.get("/getAllCustomers", async (req, res) => {
         message: "No results found",
       });
 
+    var today = [];
+
+    await customers.forEach((customer) => {
+      let tdy = customer.queData.filter(
+        (que) =>
+          new Date(que.createdAt).toLocaleDateString() ===
+          new Date().toLocaleDateString()
+      );
+      if (tdy.length !== 0) {
+        // customer.tran = tdy[0].transactionType;
+        // customer.time = new Date(tdy[0].createdAt).toLocaleTimeString();
+        // console.log(customer);
+        today.push(customer);
+      }
+    });
+
     return res.status(200).json({
       success: 1,
       data: customers,
+      que: today,
       message: "Data retreived successfully",
     });
   } catch (error) {

@@ -19,13 +19,13 @@ const customerSchema = new mongoose.Schema(
     },
     IDType: {
       type: String,
-      required: true,
+      required: false,
       unique: false,
     },
     IDNumber: {
       type: String,
-      required: true,
-      unique: true,
+      required: false,
+      unique: false,
     },
     phoneNumber: {
       type: String,

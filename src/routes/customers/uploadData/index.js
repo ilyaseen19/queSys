@@ -11,52 +11,49 @@ router.post("/uploadData", async (req, res) => {
     var newData = [];
 
     data.forEach(async (item) => {
-      if (item.IDNumber !== "" || item.phoneNumber !== "") {
-        if (
-          customers.some((customer) => customer.IDNumber === item.IDNumber) ||
-          customers.some(
-            (customer) => customer.phoneNumber === item.phoneNumber
-          )
-        ) {
-          let cust = customers.find(
-            (custo) => custo.phoneNumber === item.phoneNumber
-          );
+      if (item.IDNumber !== "" && item.phoneNumber !== "") {
+        let exist = customers.find(
+          (customer) =>
+            customer.phoneNumber === JSON.stringify(item.phoneNumber)
+        );
 
-          let qData = [
-            ...cust.queData,
-            { transactionType: item.transactionType },
-          ];
-
-          await Customer.updateOne(
-            { _id: cust._id },
+        if (exist) {
+          let update = await Customer.updateOne(
+            { phoneNumber: exist.phoneNumber },
             {
               $set: {
-                queData: qData,
+                queData: [
+                  ...exist.queData,
+                  { transactionType: item.transactionType },
+                ],
               },
             }
           );
         } else {
+          item.queData = [{ transactionType: item.transactionType }];
           newData.push(item);
         }
-
-        return;
       }
     });
 
-    if (newData.length === 0)
+    if (newData.length === 0) {
+      let updatedData = await Customer.find();
       return res.status(201).json({
         success: 2,
         message: "Data updated successfully",
+        data: updatedData,
       });
+    }
 
     let saved = await Customer.insertMany(newData);
+    let newDbData = await Customer.find();
     return res.status(201).json({
       success: 1,
-      data: saved,
+      data: newDbData,
       message: "Data uploaded successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.log({ "internal error": error });
     res.status(500).json({
       success: 0,
       message: "internal error",

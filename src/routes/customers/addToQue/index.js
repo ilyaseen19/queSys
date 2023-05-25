@@ -3,13 +3,14 @@ const Customer = require("../../../models/customer");
 
 const router = express.Router();
 
-router.post("/addToQue", async (req, res) => {
+router.patch("/addToQue/:_id", async (req, res) => {
   try {
-    const data = req.body;
+    const transactionType = req.body.transactionType;
+    const _id = req.params._id;
 
-    const customer = await Customer.findOne({ _id: data._id });
+    const customer = await Customer.findOne({ _id: _id });
 
-    let qData = { transactionType: data.transactionType };
+    let qData = { transactionType };
 
     let newQ = [...customer.queData, qData];
 
@@ -24,10 +25,23 @@ router.post("/addToQue", async (req, res) => {
 
     if (updated) {
       const newData = await Customer.find();
-      res.status(201).json({
+      var today = [];
+
+      newData.forEach((customer) => {
+        let tdy = customer.queData.filter(
+          (que) =>
+            new Date(que.createdAt).toLocaleDateString() === new Date().toLocaleDateString()
+        );
+        if (tdy.length !== 0) {
+          today.push(customer);
+        }
+      });
+
+      return res.status(201).json({
         success: 1,
         message: "Data created successfully",
         data: newData,
+        que: today,
       });
     }
 
