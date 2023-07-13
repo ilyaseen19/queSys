@@ -4,7 +4,7 @@ const createCustomer = async (data) => {
   const url = baseUrl + "createCustomer";
   var result = {};
 
-  fetch(url, {
+  await fetch(url, {
     method: "POST",
     headers: {
       Accept: "application/json",

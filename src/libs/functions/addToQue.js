@@ -4,7 +4,7 @@ const addToQue = async (data) => {
   const url = baseUrl + "addToQue/" + data._id;
   var result = {};
 
-  fetch(url, {
+  await fetch(url, {
     method: "PATCH",
     headers: {
       Accept: "application/json",
@@ -16,7 +16,7 @@ const addToQue = async (data) => {
   })
     .then((response) => response.json())
     .then((res) => {
-      result = res;
+      return (result = res);
     })
     .catch((err) => {
       console.log(err);

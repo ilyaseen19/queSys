@@ -266,7 +266,12 @@ export const AppProvider = ({ children }) => {
         });
       }
 
-      let newRes = await _getCustomers();
+      let sortQ = await sortArr(res.que);
+      let sortData = await sortArr(res.data);
+
+      setCustomers(sortData);
+      setQue(sortQ);
+      setLoading(false);
       setQueData({
         ...queData,
         idType: "",
@@ -311,7 +316,12 @@ export const AppProvider = ({ children }) => {
         });
       }
 
-      let newRes = await _getCustomers();
+      let sortQ = await sortArr(res.que);
+      let sortData = await sortArr(res.data);
+
+      setCustomers(sortData);
+      setQue(sortQ);
+      setLoading(false);
       setQueData({
         ...queData,
         idType: "",
@@ -333,7 +343,7 @@ export const AppProvider = ({ children }) => {
       transactionType,
     });
 
-    if (res.success === "") {
+    if (res.success === 0) {
       setLoading(false);
       return setSnack({
         ...snack,
@@ -343,7 +353,12 @@ export const AppProvider = ({ children }) => {
       });
     }
 
-    let newRes = await _getCustomers();
+    let sortQ = await sortArr(res.que);
+    let sortData = await sortArr(res.data);
+
+    setCustomers(sortData);
+    setQue(sortQ);
+    setLoading(false);
     setQueData({
       ...queData,
       idType: "",
