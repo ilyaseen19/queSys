@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { uploadFiles } from "../functions/uploadFile";
-import { sortArr } from "../sortArray";
+import { sortArr, sortQue } from "../sortArray";
 import { getCustomers } from "../functions/fetchCustomers";
 import dayjs from "dayjs";
 import { addToQue } from "../functions/addToQue";
@@ -202,7 +202,7 @@ export const AppProvider = ({ children }) => {
 
   const _handleQue = async () => {
     let { idType, phoneNumber, IDNumber, transactionType, fullName } = queData;
-    if (idType === "" || idType === "Phone") {
+    if (idType === "Phone") {
       if (fullName === "" || transactionType === "" || phoneNumber === "")
         return setSnack({
           ...snack,

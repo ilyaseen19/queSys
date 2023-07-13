@@ -20,7 +20,7 @@ const createCustomer = async (data) => {
   })
     .then((response) => response.json())
     .then((res) => {
-      result = res;
+     return result = res;
     })
     .catch((err) => {
       console.log(err);
