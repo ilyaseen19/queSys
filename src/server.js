@@ -18,7 +18,7 @@ const corsOptions = {
 //middleware
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
-app.use(cors());
+app.use(cors(corsOptions));
 
 const io = new Server(httpServer, {
   cors: {
