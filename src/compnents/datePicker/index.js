@@ -11,7 +11,7 @@ export default function Datepicker() {
     <LocalizationProvider size="small" dateAdapter={AdapterDayjs}>
       <DatePicker
         label="find by date"
-        value={date}
+        defaultValue={date}
         slotProps={{ textField: { size: "small" } }}
         disableFuture
         onChange={(newValue) => setDate(newValue)}
