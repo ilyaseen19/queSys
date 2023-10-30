@@ -13,6 +13,7 @@ export default function Datepicker() {
         label="find by date"
         value={date}
         slotProps={{ textField: { size: "small" } }}
+        disableFuture
         onChange={(newValue) => setDate(newValue)}
         disabled={loading || customers.length === 0 ? true : false}
       />
